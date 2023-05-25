@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 10px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        nav ul li select {
+            padding: 5px;
+        }
+
+        header {
+            background-color: #f2f2f2;
+            padding: 20px;
+            text-align: center;
+        }
+
+        main {
+            margin: 20px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'register' %}">Register</a></li>
+            <li>
+                <select onchange="location = this.value;">
+                    <option value="">Department</option>
+                    <option value="https://en.wikipedia.org/wiki/Computer_science">Computer Science</option>
+                    <option value="https://en.wikipedia.org/wiki/Commerce">Commerce</option>
+                    <!-- Add more departments here -->
+                </select>
+            </li>
+        </ul>
+        <button onclick="location.href='{% url 'login' %}'">Login</button>
+    </nav>
+    <header>
+        <h1>Welcome to Our Website</h1>
+        <img src="path/to/your/image.jpg" alt="Company Logo">
+    </header>
+    <main>
+        <h2>About Us</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tincidunt ullamcorper libero, vitae consequat nunc consectetur vitae. Integer sagittis, dolor ut iaculis efficitur, ex neque tincidunt mi, non malesuada arcu mi vitae libero.</p>
+        <h2>Services</h2>
+        <ul>
+            <li>Service 1</li>
+            <li>Service 2</li>
+            <li>Service 3</li>
+            <!-- Add more services here -->
+        </ul>
+    </main>
+</body>
+</html>
