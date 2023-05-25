@@ -21,10 +21,22 @@
 			<input type="password" name="password" id="password" placeholder="password" />
 			<input type="password" name="password1" id="password1" placeholder="confirm Password" />
 			<button type="submit">Register</button>
+      <!-- register.html -->
+
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li{% if message.tags %} class="message {{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
 		</form>
+
+
 	</div>
 	<div class="form-container sign-in-container">
-		<form action="/login" method="post">
+		<form action="/login/" method="post">
 			{% csrf_token %}
 			<h1>Sign in</h1>
 			<div class="social-container">
@@ -33,10 +45,17 @@
 				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
 			</div>
 			<span>or use your account</span>
-			<input type="text" id="username" placeholder="username" />
-			<input type="password" id="password" placeholder="Password" />
+			<input type="text" name="username" id="username" placeholder="username" />
+			<input type="password" name="password" id="password" placeholder="Password" />
 			<a href="#">Forgot your password?</a>
 			<button type="submit"> Login</button>
+      {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+            <li{% if message.tags %} class="message {{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
 		</form>
 	</div>
 	<div class="overlay-container">

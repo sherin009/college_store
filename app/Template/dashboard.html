@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  {% load static %}
+<title>Dashboard</title>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}" type="text/css" media="all" />
+</head>
+<body>
+<!-- Header -->
+<div id="header">
+  <div class="shell">
+    <!-- Logo + Top Nav -->
+    <div id="top">
+      <h1><a href="#" class="blue-text">Dashboard</a></h1>
+      <div id="top-navigation">
+        Welcome <a href="#"><strong class="blue-text">Administrator</strong></a>
+        <span class="blue-text">|</span>
+        <a href="#"><strong class="blue-text">Help</strong></a>
+        <span>|</span>
+        <a href="#"><strong class="blue-text">Profile Settings</strong></a>
+        <span>|</span>
+        <a href="/logout/" ><strong class="blue-text">Log out</strong></a>
+      </div>
+    </div>
+    <!-- End Logo + Top Nav -->
+    <!-- Main Nav -->
+    <!-- End Main Nav -->
+  </div>
+</div>
+<!-- End Header -->
+<!-- Container -->
+<div id="container">
+  <div class="shell">
+    <!-- Small Nav -->
+    <div class="small-nav"> <a href="#">Dashboard</a> <span>&gt;</span>Student Details </div>
+    <!-- End Small Nav -->
+    <!-- Message OK -->
+
+    <!-- End Message Error -->
+    <br />
+    <!-- Main -->
+    <div id="main">
+      <div class="cl">&nbsp;</div>
+      <!-- Content -->
+      <div id="content">
+        <!-- Box -->
+        <div class="box">
+          <!-- Box Head -->
+          <div class="box-head">
+            <h2 class="left">Student Details</h2>
+
+          </div>
+          <style>
+       body {
+           font-family: Arial, sans-serif;
+       }
+
+       ul.messages {
+         list-style-type: none;
+         padding: 10px;
+       }
+
+       .message {
+         padding: 10px;
+         font-size: 16px;
+         text-align: center;
+         margin-bottom: 10px;
+       }
+
+       .success {
+         background-color: #dff0d8;
+         border-color: #d6e9c6;
+         color: #3c763d;
+       }
+
+       .error {
+         background-color: #f2dede;
+         border-color: #ebccd1;
+         color: #a94442;
+       }
+
+       .info {
+         background-color: #d9edf7;
+         border-color: #bce8f1;
+         color: #31708f;
+       }
+
+       .warning {
+         background-color: #fcf8e3;
+         border-color: #faebcc;
+         color: #8a6d3b;
+       }
+
+       .form-container {
+           display: none;
+           margin-top: 20px;
+       }
+
+       .form-container form {
+           max-width: 400px;
+           margin: 0 auto;
+       }
+
+       .form-container input,
+       .form-container select {
+           width: 100%;
+           padding: 10px;
+           margin-bottom: 10px;
+           border-radius: 4px;
+           border: 1px solid #ccc;
+       }
+
+       .form-container input[type="submit"] {
+           background-color: #4CAF50;
+           color: white;
+           cursor: pointer;
+       }
+
+       .form-container input[type="submit"]:hover {
+           background-color: #45a049;
+       }
+
+
+
+        .button-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        .button-container {
+       text-align: center;
+       margin-top: 20px;
+   }
+
+   .form-container {
+       display: none;
+       text-align: center;
+   }
+   </style>
+</head>
+
+<body>
+    <div class="button-container">
+        <button id="addButton" onclick="showForm()">Add Student Details</button>
+    </div>
+
+
+    <div class="form-container">
+        <form method="post" action="/addStudent/">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Name" required><br>
+       <input type="date" name="dob" placeholder="DOB" pattern="\d{2}/\d{2}/\d{4}" title="Enter a valid date in the format DD/MM/YYYY" required><br>
+       <input type="number" name="age" placeholder="Age" min="1" required><br>
+       <select name="gender" required>
+    <option value="">Gender</option>
+    <option value="Male">Male</option>
+    <option value="Female">Female</option>
+    <option value="Other">Other</option>
+</select><br>
+
+       <input type="tel" name="phone_number" placeholder="Phone Number" required><br>
+       <input type="email" name="mail_id" placeholder="Email" required><br>
+       <input type="text" name="address" placeholder="Address" required><br>
+       <select name="department" id="department" onchange="updateCourses()" required>
+                <option value="">Department</option>
+                <option value="Commerce">Commerce</option>
+                <option value="Computer Science">Computer Science</option>
+                <!-- Add more departments here -->
+            </select><br>
+            <select name="courses" id="courses">
+                <option value="">Courses</option>
+            </select><br>
+            <select name="purpose">
+                <option value="">Purpose</option>
+                <option value="Enquiry">Enquiry</option>
+                <option value="Place Order">Place Order</option>
+                <option value="Return">Return</option>
+                <!-- Add more purposes here -->
+            </select><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <script>
+        function updateCourses() {
+            var departmentSelect = document.getElementById("department");
+            var coursesSelect = document.getElementById("courses");
+            var selectedDepartment = departmentSelect.value;
+
+            // Clear previous options
+            coursesSelect.innerHTML = '<option value="">Courses</option>';
+
+            if (selectedDepartment === "Commerce") {
+                // Add Commerce courses
+                var commerceCourses = ["BBA", "BCom", "MCom"];
+                commerceCourses.forEach(function (course) {
+                    var option = document.createElement("option");
+                    option.value = course;
+                    option.text = course;
+                    coursesSelect.appendChild(option);
+                });
+            } else if (selectedDepartment === "Computer Science") {
+                // Add Computer Science courses
+                var csCourses = ["BSc", "MSc", "BCA", "MCA"];
+                csCourses.forEach(function (course) {
+                    var option = document.createElement("option");
+                    option.value = course;
+                    option.text = course;
+                    coursesSelect.appendChild(option);
+                });
+            }
+        }
+
+        function showForm() {
+            var formContainer = document.querySelector(".form-container");
+            var addButton = document.getElementById("addButton");
+
+            formContainer.style.display = "block";
+            addButton.style.display = "none";
+        }
+    </script>
+   </script>
+          <!-- End Box Head -->
+          <!-- Table -->
+
+          <!-- Table -->
+        </div>
+        <!-- End Box -->
+        <!-- Box -->
+
+        <!-- End Box -->
+      </div>
+      <!-- End Content -->
+      <!-- Sidebar -->
+
+      <!-- End Sidebar -->
+      <div class="cl">&nbsp;</div>
+    </div>
+    <!-- Main -->
+  </div>
+
+</div>
+
+<!-- End Container -->
+<!-- Footer -->
+
+<!-- End Footer -->
+</body>
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="message {{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+</html>
